@@ -1,7 +1,6 @@
 package com.gannett.customclicklistener;
 
-import android.content.Context;
-import android.support.test.InstrumentationRegistry;
+import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -19,7 +18,6 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
-import static org.junit.Assert.*;
 
 /**
  * Instrumentation test, which will execute on an Android device.
@@ -29,21 +27,26 @@ import static org.junit.Assert.*;
 @RunWith(AndroidJUnit4.class)
 public class TestClickAndSwipe {
     @Rule
-    public ActivityTestRule<MainActivity> activityTestRule = new ActivityTestRule<MainActivity>(MainActivity.class);
+    public ActivityTestRule<MainActivity> activityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void useAppContext() throws Exception {
+    public void testApp() throws Exception {
+
         onView(withId(R.id.activity_main)).check(matches(isDisplayed()));
-        onView(withId(R.id.activity_main)).perform(click());
+        onView(withId(R.id.recycler_images)).perform(RecyclerViewActions.actionOnItemAtPosition(2, click()));
+
+
+        onView(withId(R.id.activity_detail)).check(matches(isDisplayed()));
+        onView(withId(R.id.activity_detail)).perform(click());
         onView(withId(R.id.tv1)).check(matches(not(isDisplayed())));
 
-        onView(withId(R.id.activity_main)).perform(click());
+        onView(withId(R.id.activity_detail)).perform(click());
         onView(withId(R.id.tv1)).check(matches(isDisplayed()));
 
-        onView(withId(R.id.activity_main)).perform(swipeUp());
-        onView(withId(R.id.tv1)).check(matches(isDisplayed()));
+        onView(withId(R.id.activity_detail)).perform(swipeUp());
 
-        onView(withText("Swiped")).inRoot(withDecorView(not(is(activityTestRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
+
+        onView(withId(R.id.activity_main)).check(matches(isDisplayed()));
 
     }
 }
