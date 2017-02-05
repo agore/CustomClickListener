@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:src="@drawable/sample"
         android:layout_centerInParent="true"
+        android:transitionName="transition1"
         android:scaleType="fitCenter"/>
 
     <TextView

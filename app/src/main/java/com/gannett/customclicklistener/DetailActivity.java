@@ -66,7 +66,8 @@ public class DetailActivity extends AppCompatActivity {
                         } else {
                             dragging = false;
 //                            Toast.makeText(DetailActivity.this, "Swiped", Toast.LENGTH_SHORT).show();
-                            finish();
+//                            finish();
+                            supportFinishAfterTransition();
                         }
 
                         return true;
